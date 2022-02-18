@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./node_modules/vue/dist/vue.esm-browser.js"></script>
+    <script>
+      const vnode = {
+        type: "div",
+        props: { 
+          id: "app",
+        },
+        children: "hi vue3",
+      };
+
+      // vnode -> element => mountElement
+      const element = document.createElement(vnode.type);
+      for (const key in vnode.props) {
+        const val = vnode.props[key];
+        element.setAttribute(key, val);
+      }
+      element.textContent = vnode.children;
+      console.log('%c [ element ]-27', 'font-size:13px; background:pink; color:#bf2c9f;', element)
+      document.body.append(element);
+    </script>
+  </body>
+</html>
