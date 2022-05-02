@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+    <style>
+      #app{
+        display: flex;
+        width: 100%;
+      }
+      #app .main{
+        width: 80%;
+        background-color: pink;
+      }
+      #app a{
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    35
+    <div id="app">
+      <menu-component :data="menus"></menu-component>
+    </div>
+    <main class="main"><router-view></router-view></main>
+    <!-- 递归组件 -->
+    <template id="menu-com">
+      <div>
+        <ul>
+          <li v-for="item in data">
+            <router-link :to="item.path"> {{item.name}}</router-link>
+            <menu-component
+              v-if="item.children"
+              :data="item.children"
+            ></menu-component>
+          </li>
+        </ul>
+      </div>
+    </template>
+    <script>
+      // 创建菜单组件
+      const MenuComponent = {
+        name: 'MenuComponent',
+        template: '#menu-component',
+        props: ['data'],
+      }
+      let router = new VueRouter({
+        routes: [
+          { path: '/hunan', component: { template: '<div>湖南省</div>' } },
+        ],
+      })
+      let vm = new Vue({
+        el: '#app',
+        router,
+        comments: {
+          MenuComponent,
+        },
+        data: {
+          menus: [
+            { name: '湖南省', path: '/hunan' },
+            {
+              name: '湖北',
+              path: '/hubei',
+              children: [
+                { name: '黄冈市', path: '/huanggang' },
+                {
+                  name: '武汉市',
+                  path: '/wuhan',
+                  children: [{ name: '洪山区', path: '/hongshan' }],
+                },
+              ],
+            },
+          ],
+        },
+      })
+    </script>
+  </body>
+</html>

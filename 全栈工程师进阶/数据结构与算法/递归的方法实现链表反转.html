@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      var arr = {
+        name: '浪漫主义码农',
+        age: 20,
+        adress: ['jiangxi', 'changsha'],
+        friends: {
+          friend1: '张三',
+          friend2: '李四',
+        },
+        fun: function () {
+          console.log('我是' + this.name + '的对象')
+        },
+      }
+      var brr = deepClone(arr)
+      brr.name = '法外狂徒张三'
+      brr.adress[0] = '长沙'
+      console.log('arr为', arr)
+      // arr.fun()
+      // console.log("brr为", brr)
+      // brr.fun()
+
+      //使用递归实现深拷贝
+      function deepClone(obj) {
+        //判断拷贝的obj是对象还是数组
+        var objClone = Array.isArray(obj) ? [] : {}
+        if (obj && typeof obj === 'object') {
+          //obj不能为空，并且是对象或者是数组 因为null也是object
+          for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              if (obj[key] && typeof obj[key] === 'object') {
+                //obj里面属性值不为空并且还是对象，进行深度拷贝
+                console.log(1)
+                // 注意这一条不能return ，否则3不能走到
+                // deepClone(obj[key]) 拿到了return的值，于是能成功赋值，因为js单线程，拿到质疑后，再于是走3
+                objClone[key] = deepClone(obj[key]) //递归进行深度的拷贝
+                console.log(
+                  '%c[33 objClone[key] ]',
+                  'font-size:13px; background:pink; color:#bf2c9f;',
+                  objClone[key]
+                )
+              } else {
+                objClone[key] = obj[key] //直接拷贝
+                console.log(
+                  '%c[ 22 objClone[key] ]',
+                  'font-size:13px; background:pink; color:#bf2c9f;',
+                  objClone[key]
+                )
+              }
+            }
+          }
+        }
+        console.log('final-obj', obj)
+        return objClone
+      }
+
+      // var Node = function (data) {
+      //   this.data = data
+      //   this.next = null
+      // }
+
+      // var node1 = new Node(1)
+      // var node2 = new Node(2)
+      // var node3 = new Node(3)
+      // var node4 = new Node(4)
+      // var node5 = new Node(5)
+
+      // node1.next = node2
+      // node2.next = node3
+      // node3.next = node4
+      // node4.next = node5
+      var node5 = {
+        data: 5,
+        next: null,
+      }
+      var node4 = {
+        data: 4,
+        next: node5,
+      }
+      var node3 = {
+        data: 3,
+        next: node4,
+      }
+      var node2 = {
+        data: 2,
+        next: node3,
+      }
+      var node1 = {
+        data: 1,
+        next: node2
+      }
+      // var node1 = {
+      //   data: 1,
+      //   next: {
+      //     data: 2,
+      //     next: {
+      //       data: 3,
+      //       next: {
+      //         data: 4,
+      //         next: {
+      //           data: 5,
+      //           next: null,
+      //         },
+      //       },
+      //     },
+      //   },
+      // }
+      // 递归翻转
+      function reverse_digui(head) {
+        // 如果head 为null
+        if (!head) {
+          return null
+        }
+        if (head.next == null) {
+          console.log(
+            '%c[ 最后一个head.next ]',
+            'font-size:13px; background:pink; color:#bf2c9f;',
+            head
+          )
+          return head
+        }
+        // 从下一个节点开始进行翻转
+        console.log(head)
+        var new_head = reverse_digui(head.next)
+
+        console.log(
+          '%c[ 递归后2 head ]',
+          'font-size:13px; background:pink; color:#bf2c9f;',
+          head,
+          ' head.next.next',
+          head.next.next
+        )
+
+        head.next.next = head // 把当前节点连接到新链表上
+        head.next = null //头结点的下一个是null
+        console.log(
+          '%c[递归后3 head ]',
+          'font-size:13px; background:pink; color:#bf2c9f;',
+          head
+        )
+
+        return new_head
+      }
+      console.log(reverse_digui(node1))
+      // print(reverse_digui(node1))
+
+
+      // 1-->2-->3-->4-->5-->null
+      //         1-->2-->3-->4    5 先出5，然后4开始断开和5的关系，然后连接null
+                                 
+    </script>
+  </body>
+</html>
