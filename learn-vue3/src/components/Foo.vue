@@ -30,7 +30,8 @@ export default {
     // this.$props
     console.log(props); //打印props
     // eslint-disable-next-line vue/no-mutating-props
-    props.title = "hhaa";
+    // props.title = "hhaa";//props是不可以被修改的
+
     // count
     // 1 false "" -> 值类型
     let count = ref(1);
@@ -81,7 +82,7 @@ export default {
     const double = computed(() => {
       return count.value * 2;
     });
-    console.log(double);
+    console.log(double);//计算属性也是ref的实现，使用时加上.value
 //     console.log("lodash",_.cloneDeep);
 
     watch(
@@ -94,7 +95,7 @@ export default {
       }
     );
 
-    // object -> user
+    //watch对象的某一个属性用函数 object -> user
     watch(
       () => user.age,
       (newVal, oldVal) => {

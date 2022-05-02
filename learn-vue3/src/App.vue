@@ -26,9 +26,6 @@
   <Baz v-if="showBar"></Baz>
 
 
-  ----
-  <div>
-
     <Counter></Counter>
   </div>
 </template>

@@ -10,6 +10,15 @@ import Element3 from 'element3'
 
 // vue
 // Vue.prototype
+// vue3创建组件
+const Foo=defineComponent({
+  data(){},
+  methods: {
+    name() {
+      
+    }
+  },
+})
 
 createApp(App)
   .use(store) // vue3 -> 

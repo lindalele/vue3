@@ -3,7 +3,7 @@
     <button @click="modalOpen = true">
       Open full screen modal! (With teleport!)
     </button>
-
+组件指定渲染位置 到body
     <teleport to="body">
       <div v-if="modalOpen" class="modal">
         <div>
@@ -16,6 +16,7 @@
     <teleport to="body">
       <div v-if="modalOpen" class="modal">
         <div>
+          父级是ModalButton
           <Foo></Foo>
           two
         </div>
