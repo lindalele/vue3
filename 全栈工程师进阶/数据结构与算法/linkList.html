@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Node {
+            constructor(element) {
+                this.element = element
+                this.next = null
+            }
+        }
+        // 追加节点
+        // 1->2->3->4( 4.next=5) ->5
+        // 27
+        class LinkList {
+            constructor() {
+                this.head = null
+                this.length = 0
+            }
+            append(element) {
+                let node = new Node(element)
+                if (!this.head) {
+                    this.head = node
+                } else {
+                    // 从头开始，找next ,直到最后一个节点，然后追加进去
+                    // current要加的一个就是上一个的next, 要添加的新元素的next就是node
+                    let current = this.head
+                    while (current.next) {
+                        current = current.next
+                    }
+                    current.next = node
+                    this.length += 1
+                }
+            }
+            // 插入元素
+            // 1->2->3  ->     4(current) ->5
+            //       3.next=6(node) 
+            //       6.next=4
+
+            insert(position, element) {
+                if (position < 0 || position > this.length) {
+                    return false
+                }
+                let node = new Node(element)
+                if (position === 0) {
+                    node.next = this.head
+                    this.head = node
+                } else {
+                    // index索引
+                    let index = 0
+                    let previous = null
+                    let current = this.head
+                    while (index < position) {
+                        previous = current //从头开始
+                        current = current.next //移动到下一个，再次循环，previous是current,知道找到position
+                        index++
+                    }
+                    previous.next = node
+                    node.next = current //node传进来的要插入的元素
+                }
+                this.length += 1
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        40
+        // 啊哈算法 入门
+        // 算法（第4版） 用java写的
+        class HashTable {
+            constructor() {
+                this.table = [];
+                this.values = [];
+            }
+            static hash(key) {
+                let hashs = 0;
+                for (let code of key) {
+                    hashs += code.charCodeAt();
+                    console.log("🚀 ~ HashTable ~ hash ~ code:", code, 'hashs', hashs)
+                }
+                // 计算的结果，会分布在0-37之间
+                return hashs % 37;
+            }
+            get(key) {
+                return this.table[HashTable.hash(key)];
+            }
+            put(key, value) {
+                let position = HashTable.hash(key);
+                this.table[position] = value;
+            }
+        }
+        // hash表复杂度：O(1) 查找元素，删除元素O(1)
+        // 缺点：无序、空间复杂度提高，数据冗余
+        // 而且如果两个key的hash值相同，就会发生冲突，需要扩容。
+        // 解决冲突的方法有：链地址法、开放地址法
+        let hash = new HashTable();
+        hash.put('name', 'zhangsan');
+        console.log(hash.get('name'));
+    </script>
+</body>
+
+</html>
